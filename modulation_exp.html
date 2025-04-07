@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>変調方式について</title>
+  <style>
+    .exercise {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .toggle-button {
+      cursor: pointer;
+      color: #007acc;
+      text-decoration: underline;
+      margin: 5px 0;
+    }
+    .answer {
+      display: none;
+      background-color: #eef;
+      padding: 10px;
+      border-left: 3px solid #007acc;
+      margin-top: 10px;
+    }
+    pre {
+      background-color: #eee;
+      padding: 10px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>変調方式の詳細解説</h1>
+    <nav>
+      <a href="index.html">トップページへ戻る</a>
+    </nav>
+  </header>
+  
+  <main>
+    <section>
+      <h2>はじめに</h2>
+      <p>
+        本稿は通信工学における変調方式について、簡単に解説するものである。変調方式とは、デジタル信号を伝送する際に、その信号の位相、振幅、あるいは周波数を変化させることにより情報を符号化する手法である。ここでは、BPSK、QPSK、8PSK、16QAM、64QAMという代表的な変調方式について、原理、特徴、利点および欠点を説明する。
+      </p>
+    </section>
+    
+    <section>
+      <h2>BPSK（Binary Phase Shift Keying）</h2>
+      <p>
+        BPSKは、最も基本的な位相変調方式である。1ビットの情報を送信するために、2つの位相（例えば、0°と180°）を用いる。すなわち、送信すべきデータが「0」であれば0°、「1」であれば180°の位相の信号が送出される。BPSKは実装が単純であり、雑音耐性が高いという利点を有するが、1シンボルあたりの情報量が1ビットであるため、帯域効率は低い。
+      </p>
+    </section>
+    
+    <section>
+      <h2>QPSK（Quadrature Phase Shift Keying）</h2>
+      <p>
+        QPSKは、BPSKの発展形として、1シンボルあたり2ビットの情報を送信する方式である。具体的には、信号の位相を45°、135°、225°、315°など4段階に分割し、それぞれに00、01、10、11を割り当てる。これにより、同一の帯域幅でBPSKの2倍のデータレートが実現可能となる。QPSKは、位相差が90°であるため、干渉に対してもある程度の耐性を示す。
+      </p>
+    </section>
+    
+    <section>
+      <h2>8PSK（8-ary Phase Shift Keying）</h2>
+      <p>
+        8PSKは、8つの位相を用いることにより、1シンボルあたり3ビットの情報を伝達する方式である。位相を8等分するため、各シンボル間の角度は45°となる。しかし、位相間隔が狭いため、雑音の影響を受けやすく、誤り率が増加する傾向がある。このような場合、誤り訂正符号と組み合わせることにより、信頼性を向上させる工夫がなされる。
+      </p>
+    </section>
+    
+    <section>
+      <h2>16QAM（16-ary Quadrature Amplitude Modulation）</h2>
+      <p>
+        16QAMは、振幅変調と位相変調を組み合わせた手法であり、16個のシンボルを用いて1シンボルあたり4ビットの情報を送信する。信号の実部と虚部の両方を変化させることで、より多くの情報を伝達することが可能となる。しかし、シンボル間隔が狭くなるため、信号雑音比（SNR）が高い環境でないと正確な復調が困難となる。
+      </p>
+    </section>
+    
+    <section>
+      <h2>64QAM（64-ary Quadrature Amplitude Modulation）</h2>
+      <p>
+        64QAMは、16QAMをさらに拡張した方式であり、64個のシンボルを用いて1シンボルあたり6ビットの情報を送信する。帯域効率は極めて高いが、その反面、シンボル間隔がさらに狭くなり、SNRの要求は一層厳しくなる。64QAMは、データ通信の高速化が求められる現代の通信システムにおいて、適切な誤り訂正技術と組み合わせて利用される。
+      </p>
+    </section>
+    
+    <section>
+      <h2>演習問題</h2>
+      <p>
+        以下に演習問題を示す。各問題の「答えを表示」をクリックすると、解答が表示される仕組みとなっている。
+      </p>
+      
+      <div class="exercise">
+        <p><strong>問題1:</strong> BPSKにおいて、0と1はそれぞれどの位相に対応するか説明せよ。</p>
+        <p class="toggle-button" onclick="toggleAnswer('ex1')">【答えを表示】</p>
+        <div id="ex1" class="answer">
+          <p>
+            一般的には、BPSKでは「0」は0°、「1」は180°に対応する。これは、送信信号の符号反転により2つの状態を明確に区別するためであり、位相が180°異なることで受信側は信号の極性から正誤を判断することが可能となる。
+          </p>
+        </div>
+      </div>
+      
+      <div class="exercise">
+        <p><strong>問題2:</strong> QPSKにおいて、4つの位相がどのように2ビットの情報に対応しているか説明せよ。</p>
+        <p class="toggle-button" onclick="toggleAnswer('ex2')">【答えを表示】</p>
+        <div id="ex2" class="answer">
+          <p>
+            QPSKでは、例えば45°、135°、225°、315°の位相を用いる。それぞれに対して、「00」、「01」、「11」、「10」などのビットペアが割り当てられる。これにより、1シンボルで2ビットの情報を送信可能となる。具体的には、送信すべきデータが「01」であれば、135°の位相の信号が発信される。
+          </p>
+        </div>
+      </div>
+      
+      <div class="exercise">
+        <p><strong>問題3:</strong> 8PSKにおいて、1シンボルで3ビットを伝達できる理由を説明せよ。</p>
+        <p class="toggle-button" onclick="toggleAnswer('ex3')">【答えを表示】</p>
+        <div id="ex3" class="answer">
+          <p>
+            8PSKでは、信号の位相が0から360°を8等分しており、各シンボルは8通りの状態をとる。情報量は log<sub>2</sub>(8)=3 ビットであるため、1シンボルで3ビットの情報が伝達される。すなわち、8つの状態それぞれに3ビットのコードが割り当てられているのである。
+          </p>
+        </div>
+      </div>
+      
+      <div class="exercise">
+        <p><strong>問題4:</strong> 16QAMと64QAMの違いを、帯域効率および雑音耐性の観点から説明せよ。</p>
+        <p class="toggle-button" onclick="toggleAnswer('ex4')">【答えを表示】</p>
+        <div id="ex4" class="answer">
+          <p>
+            16QAMは1シンボルで4ビット、64QAMは6ビットを送信する。64QAMはより多くのシンボル状態を持つため、帯域効率は向上するが、各シンボル間の距離が狭くなるため、雑音や干渉に対して脆弱となる。一方、16QAMは雑音耐性が比較的高いが、帯域効率は64QAMに劣る。
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    function toggleAnswer(id) {
+      var ans = document.getElementById(id);
+      if (ans.style.display === "none" || ans.style.display === "") {
+        ans.style.display = "block";
+      } else {
+        ans.style.display = "none";
+      }
+    }
+  </script>
+  <script>
+    // フッターの読み込み
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>

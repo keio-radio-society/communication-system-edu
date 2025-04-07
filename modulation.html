@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>変調方式シミュレーション</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>変調方式シミュレーション</h1>
+    <nav>
+      <a href="index.html">トップページへ戻る</a>
+    </nav>
+  </header>
+  <main>
+    <section id="controls">
+      <label for="modulationType">変調方式:</label>
+      <select id="modulationType">
+        <option value="BPSK">BPSK</option>
+        <option value="QPSK">QPSK</option>
+        <option value="8PSK">8PSK</option>
+        <option value="16QAM">16QAM</option>
+        <option value="64QAM">64QAM</option>
+      </select>
+      
+      <br>
+      <label for="snr">SNR (dB):</label>
+      <input type="range" id="snr" min="0" max="30" value="15">
+      <span id="snrValue">15</span>
+      <br>
+      <label for="symbolRate">シンボルレート (symbols/sec):</label>
+      <input type="range" id="symbolRate" min="100" max="1000" value="500">
+      <span id="symbolRateValue">500</span>
+      <br>
+      <button id="runSimulation">シミュレーション開始</button>
+    </section>
+    <section id="summary">
+      <h2>シミュレーション概要</h2>
+      <p id="dataRateInfo"></p>
+      <!-- BER値もここで表示 -->
+      <p id="berValueInfo"></p>
+    </section>
+    <section id="display">
+      <div class="canvas-group">
+        <h3>理想コンスタレーション (ノイズなし)</h3>
+        <canvas id="idealConstellationCanvas" width="300" height="300"></canvas>
+      </div>
+      <div class="canvas-group">
+        <h3>受信コンスタレーション (ノイズ付)</h3>
+        <canvas id="constellationCanvas" width="300" height="300"></canvas>
+      </div>
+      <div class="canvas-group">
+        <h3>信号波形 (実部)</h3>
+        <canvas id="waveformCanvas" width="500" height="200"></canvas>
+      </div>
+      <div id="resultText"></div>
+    </section>
+  </main>
+  <script type="module" src="js/modulationSimulator.js"></script>
+  <script>
+    // フッターの読み込み
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+  }
+  header, footer {
+    background-color: #333;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+  }
+  nav ul {
+    list-style: none;
+    padding: 0;
+  }
+  nav ul li {
+    display: inline;
+    margin: 0 1em;
+  }
+  main {
+    padding: 1em;
+  }
+  #controls {
+    margin-bottom: 1em;
+  }
+  canvas {
+    border: 1px solid #ccc;
+    margin: 0.5em 0;
+    display: block;
+  }
+  

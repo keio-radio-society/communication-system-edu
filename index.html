@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>通信システム</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>通信システム</h1>
+  </header>
+  <nav>
+    <ul>
+        <li><a href="modulation_exp.html">変調方式について</a></li>
+        <li><a href="modulation.html">変調方式シミュレーション</a></li>
+        <li><a href="error_correction_exp.html">誤り訂正符号（ハミング符号）について</a></li>
+        <li><a href="error_correction.html">誤り訂正符号（ハミング符号）シミュレーション</a></li>
+    </ul>
+  </nav>
+  <main>
+    <p>各種通信技術のシミュレーションを体験してください。</p>
+  </main>
+  <script>
+    // フッターの読み込み
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>

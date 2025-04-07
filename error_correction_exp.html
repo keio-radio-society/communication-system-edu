@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>
+    誤り訂正符号（ハミング符号）について
+  </title>
+  <style>
+    .exercise {
+      margin: 20px 0;
+      padding: 15px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .toggle-button {
+      cursor: pointer;
+      color: #007acc;
+      text-decoration: underline;
+      margin: 5px 0;
+    }
+    .answer {
+      display: none;
+      background-color: #eef;
+      padding: 10px;
+      border-left: 3px solid #007acc;
+      margin-top: 10px;
+    }
+    pre {
+      background-color: #eee;
+      padding: 10px;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  </style>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header>
+    <h1>誤り訂正符号（ハミング符号）について</h1>
+    <nav>
+      <a href="index.html">トップページへ戻る</a>
+    </nav>
+  </header>
+  
+  <main>
+    <!-- はじめに -->
+    <section>
+      <h2>はじめに</h2>
+      <p>
+        本稿では、誤り訂正符号の一手法である拡張ハミング符号（Hamming(8,4)）について解説する。拡張ハミング符号とは、元来のHamming(7,4)符号に全体偶数パリティビットを追加したものであり、単一ビット誤りの訂正および二重誤りの検出が可能である。本稿では、そのエンコードおよびデコードの計算手順、理論的背景について、詳細に解説する。
+      </p>
+    </section>
+    
+    <!-- 拡張ハミング符号の概要 -->
+    <section>
+      <h2>拡張ハミング符号とは</h2>
+      <p>
+        拡張ハミング符号は、4ビットの情報に対して、Hamming(7,4)符号に基づき7ビットの符号語を生成し、さらに全体の偶数パリティビット（p₀）を付加して8ビットの符号語とする方式である。これにより、単一ビットの誤りを訂正し、複数ビットの誤りを検出する能力を有する。ここで、各パリティビットは特定のデータビットの排他的論理和（XOR）により算出される。
+      </p>
+    </section>
+    
+    <!-- エンコードの計算手順 -->
+    <section>
+      <h2>エンコードの計算手順</h2>
+      <p>
+        拡張ハミング符号のエンコードは、まず4ビットの元データを Hamming(7,4) 符号により7ビットの符号語に変換する。具体的には、データビットを d₁, d₂, d₃, d₄ とし、パリティビット p₁, p₂, p₃ を以下のように計算する。
+      </p>
+      <pre>
+p₁ = d₁ ⊕ d₂ ⊕ d₄
+p₂ = d₁ ⊕ d₃ ⊕ d₄
+p₃ = d₂ ⊕ d₃ ⊕ d₄
+      </pre>
+      <p>
+        これにより、7ビットの符号語は [p₁, p₂, d₁, p₃, d₂, d₃, d₄] となる。さらに、全体の偶数パリティを確保するため、これら7ビットの XOR を計算し、全体パリティ p₀ とする。最終的な拡張符号語は [p₀, p₁, p₂, d₁, p₃, d₂, d₃, d₄] である。
+      </p>
+    </section>
+    
+    <!-- デコードの計算手順 -->
+    <section>
+      <h2>デコードの計算手順</h2>
+      <p>
+        受信した拡張符号語から誤りを訂正するため、まず下位7ビットについてシンドロームを計算する。具体的には、各パリティチェックビット s₁, s₂, s₃ は以下のように求める。
+      </p>
+      <pre>
+s₁ = p₁ ⊕ d₁ ⊕ d₂ ⊕ d₄
+s₂ = p₂ ⊕ d₁ ⊕ d₃ ⊕ d₄
+s₃ = p₃ ⊕ d₂ ⊕ d₃ ⊕ d₄
+      </pre>
+      <p>
+        これらの s₁, s₂, s₃ を2進数として結合するとシンドロームが得られ、値が 0 であれば誤りは存在しない。もしシンドロームが非0であり、かつ全体パリティチェック（8ビット全体の XOR）が誤っている場合、シンドロームが示す位置のビットが誤りであると判断し、該当ビットを反転する。なお、シンドロームが非0で全体パリティが正しい場合は、複数誤りが発生していると判断し、訂正不能である。
+      </p>
+    </section>
+    
+    <!-- 誤り訂正の理論的背景 -->
+    <section>
+      <h2>誤り訂正の理論的背景</h2>
+      <p>
+        拡張ハミング符号は、単一ビット誤り訂正および二重誤り検出の能力を有する。これは、符号語間のハミング距離が最低4であることに起因する。すなわち、任意の2つの符号語間のビットが異なる数が4以上であれば、1ビットの誤りであれば必ず元の符号語に訂正でき、2ビットの誤りであれば誤りを検出できる。これにより、信頼性の高い通信を実現することが出来る。
+      </p>
+    </section>
+    
+    <!-- 演習問題 -->
+    <section>
+      <h2>演習問題</h2>
+      <p>
+        以下に拡張ハミング符号に関する演習問題を示す。各問題の「答えを表示」をクリックすると、解答が表示される仕組みとなっている。
+      </p>
+      
+      <div class="exercise">
+        <p><strong>問題1:</strong> 4ビットの元データ [1, 0, 1, 1] に対して、拡張ハミング符号はどのように生成されるか、各パリティビットの計算過程を示せ。</p>
+        <p class="toggle-button" onclick="toggleAnswer('ex1')">【答えを表示】</p>
+        <div id="ex1" class="answer">
+          <p>
+            まず、d₁=1, d₂=0, d₃=1, d₄=1 とする。<br>
+            p₁ = 1 ⊕ 0 ⊕ 1 = 0<br>
+            p₂ = 1 ⊕ 1 ⊕ 1 = 1<br>
+            p₃ = 0 ⊕ 1 ⊕ 1 = 0<br>
+            よって、7ビット符号語は [0, 1, 1, 0, 0, 1, 1] となる。<br>
+            次に、全体パリティ p₀ = 0⊕1⊕1⊕0⊕0⊕1⊕1 = 0 となる。<br>
+            最終的な拡張符号語は [0, 0, 1, 1, 0, 0, 1, 1] である。
+          </p>
+        </div>
+      </div>
+      
+      <div class="exercise">
+        <p><strong>問題2:</strong> 受信符号語 [0, 0, 1, 0, 0, 1, 1, 1] に対して、シンドロームおよび全体パリティチェックを行い、どのビットに誤りがあるか訂正せよ。また訂正不能である場合は、その理由を述べよ</p>
+        <p class="toggle-button" onclick="toggleAnswer('ex2')">【答えを表示】</p>
+        <div id="ex2" class="answer">
+          <p>
+            下位7ビットは [0, 1, 0, 0, 1, 1, 1] である。<br>
+            s₁ = 0 ⊕ 0 ⊕ 1 ⊕ 1 = 0<br>
+            s₂ = 1 ⊕ 0 ⊕ 1 ⊕ 1 = 1<br>
+            s₃ = 0 ⊕ 1 ⊕ 1 ⊕ 1 = 1<br>
+            シンドローム = (1<<2) | (1<<1) | 0 = 6<br>
+            全体パリティは、8ビット全体の XOR = 0 ⊕0⊕1⊕0⊕0⊕1⊕1⊕1 = 0。<br>
+            ここでは、シンドロームが非0かつ全体パリティが正であるため、複数誤りが疑われるため訂正不能となる（解答例としては「複数誤り検出」）。
+          </p>
+        </div>
+      </div>
+      
+      <div class="exercise">
+        <p><strong>問題3:</strong> 拡張ハミング符号が単一誤り訂正および二重誤り検出を可能とする理由を、ハミング距離の観点から説明せよ。</p>
+        <p class="toggle-button" onclick="toggleAnswer('ex3')">【答えを表示】</p>
+        <div id="ex3" class="answer">
+          <p>
+            拡張ハミング符号は、元来のHamming(7,4)符号のハミング距離が3であったが、全体パリティビットを加えることにより最小ハミング距離が4となる。<br>
+            ハミング距離が4であれば、1ビットの誤りは訂正可能であり、2ビットの誤りは検出可能である。すなわち、符号語間の最小距離が4であることにより、単一誤り訂正および二重誤り検出が可能となるのである。
+          </p>
+        </div>
+      </div>
+      
+      <div class="exercise">
+        <p><strong>問題4:</strong> 拡張ハミング符号における全体パリティビットの計算方法と、その役割を説明せよ。</p>
+        <p class="toggle-button" onclick="toggleAnswer('ex4')">【答えを表示】</p>
+        <div id="ex4" class="answer">
+          <p>
+            全体パリティビットは、7ビットのHamming(7,4)符号語全体のXORにより算出される。<br>
+            その役割は、シンドロームが0の場合に全体パリティのみが誤っている（単一の全体パリティビットの誤り）を検出することである。<br>
+            例えば、元の符号語が [0, 1, 1, 0, 0, 1, 1] であれば、全体パリティは 0 となるが、受信時に全体パリティビットのみが誤っている場合、シンドロームは0となるが全体パリティチェックにより誤りが検出される。
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    function toggleAnswer(id) {
+      var ans = document.getElementById(id);
+      if (ans.style.display === "none" || ans.style.display === "") {
+        ans.style.display = "block";
+      } else {
+        ans.style.display = "none";
+      }
+    }
+  </script>
+  <script>
+    // フッターの読み込み
+    fetch('footer.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('footer-container').innerHTML = data;
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>
